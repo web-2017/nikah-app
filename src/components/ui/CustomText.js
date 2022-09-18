@@ -3,7 +3,7 @@ import { Platform } from 'react-native'
 import { Text, useTheme } from 'react-native-paper'
 
 // all fontFamily in '../ui-kit/FontFamily.js.js'
-const CustomText = ({ children, style, onPress }) => {
+export const CustomText = ({ children, style, onPress }) => {
 	const { colors } = useTheme()
 	return (
 		<Text
@@ -21,5 +21,3 @@ const CustomText = ({ children, style, onPress }) => {
 		</Text>
 	)
 }
-
-export default CustomText

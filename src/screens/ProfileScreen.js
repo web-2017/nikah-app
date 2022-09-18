@@ -96,41 +96,47 @@ const ProfileScreen = ({ navigation }) => {
 				// get current user profile
 				const fetchCurrentProfileData = await getCurrentProfile()
 				// if profile exist change method on PUT
-				if (fetchCurrentProfileData?._id) {
+				if (fetchCurrentProfileData?.profile?._id) {
 					setFetchMethod('PUT')
-					setPostId(fetchCurrentProfileData?._id)
+					setPostId(fetchCurrentProfileData?.profile?._id)
 
 					console.log(fetchCurrentProfileData)
 
-					setFamilyStatus(fetchCurrentProfileData?.familyStatus)
-					setWannaKidsMore(fetchCurrentProfileData?.wannaKidsMore)
-					setLanguages(fetchCurrentProfileData?.languages)
-					setLevelOfFaith(fetchCurrentProfileData?.levelOfFaith)
-					setConvertMuslim(fetchCurrentProfileData?.convertMuslim)
-					setAkida(fetchCurrentProfileData?.akida)
+					setFamilyStatus(fetchCurrentProfileData?.profile?.familyStatus)
+					setWannaKidsMore(fetchCurrentProfileData?.profile?.wannaKidsMore)
+					setLanguages(fetchCurrentProfileData?.profile?.languages)
+					setLevelOfFaith(fetchCurrentProfileData?.profile?.levelOfFaith)
+					setConvertMuslim(fetchCurrentProfileData?.profile?.convertMuslim)
+					setAkida(fetchCurrentProfileData?.profile?.akida)
 					setOrigin({
-						nationality: fetchCurrentProfileData?.origin?.nationality,
-						countryOfBirth: fetchCurrentProfileData?.origin?.countryOfBirth,
-						countryLiveNow: fetchCurrentProfileData?.origin?.countryLiveNow,
-						cityLiveNow: fetchCurrentProfileData?.origin?.cityLiveNow,
-						statusResident: fetchCurrentProfileData?.origin?.statusResident,
+						nationality: fetchCurrentProfileData?.profile?.origin?.nationality,
+						countryOfBirth:
+							fetchCurrentProfileData?.profile?.origin?.countryOfBirth,
+						countryLiveNow:
+							fetchCurrentProfileData?.profile?.origin?.countryLiveNow,
+						cityLiveNow: fetchCurrentProfileData?.profile?.origin?.cityLiveNow,
+						statusResident:
+							fetchCurrentProfileData?.profile?.origin?.statusResident,
 					})
 					setAppearance({
-						height: fetchCurrentProfileData?.appearance?.height,
-						weight: fetchCurrentProfileData?.appearance?.weight,
-						disability: fetchCurrentProfileData?.appearance?.disability,
+						height: fetchCurrentProfileData?.profile?.appearance?.height,
+						weight: fetchCurrentProfileData?.profile?.appearance?.weight,
+						disability:
+							fetchCurrentProfileData?.profile?.appearance?.disability,
 					})
-					setOriginRace(fetchCurrentProfileData?.originRace)
+					setOriginRace(fetchCurrentProfileData?.profile?.originRace)
 					setCareer({
-						qualification: fetchCurrentProfileData?.career?.qualification,
-						education: fetchCurrentProfileData?.career?.education,
-						jobTitle: fetchCurrentProfileData?.career?.jobTitle,
-						specialization: fetchCurrentProfileData?.career?.specialization,
+						qualification:
+							fetchCurrentProfileData?.profile?.career?.qualification,
+						education: fetchCurrentProfileData?.profile?.career?.education,
+						jobTitle: fetchCurrentProfileData?.profile?.career?.jobTitle,
+						specialization:
+							fetchCurrentProfileData?.profile?.career?.specialization,
 					})
-					setIncomeMonth(fetchCurrentProfileData?.incomeMonth)
-					setIncomeYear(fetchCurrentProfileData?.incomeYear)
-					setAge(fetchCurrentProfileData?.age)
-					setDescription(fetchCurrentProfileData?.description)
+					setIncomeMonth(fetchCurrentProfileData?.profile?.incomeMonth)
+					setIncomeYear(fetchCurrentProfileData?.profile?.incomeYear)
+					setAge(fetchCurrentProfileData?.profile?.age)
+					setDescription(fetchCurrentProfileData?.profile?.description)
 					dispatch(setLoading(false))
 				} else {
 					setFetchMethod('POST')

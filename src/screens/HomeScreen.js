@@ -2,9 +2,13 @@ import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet } from 'react-native'
 import { Card, Surface, useTheme } from 'react-native-paper'
 
-import CustomText from '../components/ui/CustomText'
 import Container from '../components/Container'
-import { CustomButton, CustomSnackbar, CustomTitle } from '../components/ui'
+import {
+	CustomButton,
+	CustomText,
+	CustomSnackbar,
+	CustomTitle,
+} from '../components/ui'
 import { userRoute } from '../api/apiRoutes'
 import fetchHandler from '../utils/fetchHandler'
 import { ConvertTime } from '../utils/filters/convertTime'

@@ -15,8 +15,8 @@ import {
 	CustomSnackbar,
 	CustomButton,
 	CustomTitle,
+	CustomText,
 } from '../components/ui'
-import CustomText from '../components/ui/CustomText'
 
 const SignUpScreen = ({ navigation }) => {
 	const { colors } = useTheme()

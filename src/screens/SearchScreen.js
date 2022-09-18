@@ -9,7 +9,7 @@ import {
 } from 'react-native-paper'
 import { Fontisto } from 'react-native-vector-icons'
 
-import CustomText from '../components/ui/CustomText'
+import { CustomText } from '../components/ui'
 import fetchHandler from '../utils/fetchHandler'
 import { allUsersRoute } from '../api/apiRoutes'
 import { UserContext } from '../context/userContext'
@@ -56,7 +56,7 @@ const SearchScreen = ({ navigation }) => {
 	}
 
 	const getCurrentProfile = (profileId) => {
-		navigation.navigate('Date', { id: profileId })
+		navigation.navigate('Date', { id: profileId, token: stateUser?.token })
 	}
 
 	const renderItem = ({ item }) => {

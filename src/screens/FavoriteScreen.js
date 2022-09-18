@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import CustomText from '../components/ui/CustomText'
+import { CustomText } from '../components/ui'
 
 const FavoriteScreen = () => {
 	return (
