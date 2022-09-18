@@ -1,12 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
-import { Searchbar, List, useTheme } from 'react-native-paper'
+import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import {
+	Searchbar,
+	List,
+	useTheme,
+	Switch,
+	TouchableRipple,
+} from 'react-native-paper'
+import { Fontisto } from 'react-native-vector-icons'
 
-import Container from '../components/Container'
 import CustomText from '../components/ui/CustomText'
 import fetchHandler from '../utils/fetchHandler'
-import { profilesRoute } from '../api/apiRoutes'
+import { allUsersRoute } from '../api/apiRoutes'
 import { UserContext } from '../context/userContext'
+import { ConvertTime } from '../utils/filters/convertTime'
 
 const DATA = [
 	{
@@ -23,35 +30,24 @@ const DATA = [
 	},
 ]
 
-const SearchScreen = () => {
+const SearchScreen = ({ navigation }) => {
 	const { colors } = useTheme()
-	const [searchQuery, setSearchQuery] = useState('')
 	const [stateUser, setStateUser] = useContext(UserContext)
-	const [posts, setPosts] = useState([
-		{
-			id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-			title: 'First Item',
-		},
-		{
-			id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-			title: 'Second Item',
-		},
-		{
-			id: '58694a0f-3da1-471f-bd96-145571e29d72',
-			title: 'Third Item',
-		},
-	])
+	const [users, setUsers] = useState([])
+	const [isSwitchOn, setIsSwitchOn] = React.useState(false)
 	useEffect(() => {
-		getPosts()
+		getUsers()
 	}, [])
 
-	const getPosts = async () => {
+	const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn)
+
+	const getUsers = async () => {
 		try {
 			const response = await fetchHandler.getAllDataHandler({
-				url: profilesRoute,
+				url: `${allUsersRoute}/?sex=${stateUser?.user?.sex}`,
 				token: stateUser?.token,
 			})
-
+			setUsers(response)
 			console.log(response)
 		} catch (error) {
 			// throw new Error('Error fetch posts', { cause: error })
@@ -59,19 +55,47 @@ const SearchScreen = () => {
 		}
 	}
 
-	const renderItem = ({ item }) => (
-		<List.Item
-			title='Second Item'
-			left={() => <List.Icon color={colors.gray} icon='folder' />}
-		/>
-	)
+	const getCurrentProfile = (profileId) => {
+		navigation.navigate('Date', { id: profileId })
+	}
+
+	const renderItem = ({ item }) => {
+		return (
+			<TouchableRipple
+				rippleColor='rgba(0, 0, 0, .32)'
+				onPress={() => getCurrentProfile(item?._id)}
+			>
+				<List.Item
+					title={`${item?.firstName} ${item?.lastName}`}
+					description={`Age: ${ConvertTime({
+						mode: 'getCurrentAge',
+						time: item?.dob,
+					})}`}
+					titleStyle={{ color: colors.primary }}
+					descriptionStyle={{ color: colors.gray }}
+					left={() => (
+						<List.Icon
+							color={colors.gray}
+							icon={() => <Fontisto name='female' size={30} />}
+						/>
+					)}
+				/>
+			</TouchableRipple>
+		)
+	}
 
 	return (
 		<View style={{ marginHorizontal: 5 }}>
+			<View style={{ flexDirection: 'row' }}>
+				<CustomText style={{ alignSelf: 'center' }}>
+					{isSwitchOn ? 'yes' : 'no'}
+				</CustomText>
+				<Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
+			</View>
 			<FlatList
-				data={posts}
+				data={users}
 				renderItem={renderItem}
-				keyExtractor={(item) => item.id}
+				keyExtractor={(item) => item._id}
 			/>
 			<List.Subheader>Some title</List.Subheader>
 		</View>

@@ -1,7 +1,7 @@
 import moment from 'moment'
 
 export const ConvertTime = ({ mode = 'timeAgo', time }) => {
-	if (!time) {
+	if (!time || time == null) {
 		// console.log('time props is required')
 		return
 	}

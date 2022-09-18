@@ -47,6 +47,7 @@ class FetchClass {
 			console.error(error.cause)
 		}
 	}
+
 	async getAllDataHandler({ url, token }) {
 		try {
 			const response = await fetch(url, {
