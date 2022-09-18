@@ -9,6 +9,7 @@ export const CustomButton = ({
 	onPress,
 	loading,
 	color,
+	icon = 'send',
 }) => {
 	const { colors } = useTheme()
 	return (
@@ -25,7 +26,7 @@ export const CustomButton = ({
 				color={color || colors.accent}
 				onPress={onPress}
 				loading={loading}
-				icon='send'
+				icon={icon}
 				mode={mode} // 'text' | 'outlined' | 'contained' | 'elevated' | 'contained-tonal'
 			>
 				{children}

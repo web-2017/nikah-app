@@ -6,6 +6,7 @@ const RootStack = createStackNavigator()
 import { TabNavigation } from './TabNavigation'
 import UserScreen from '../screens/UserScreen'
 import DateProfileScreen from '../screens/DateProfileScreen'
+import FilterScreen from '../screens/FilterScreen'
 import { UserContext } from '../context/userContext'
 
 const Navigation = () => {
@@ -31,6 +32,9 @@ const Navigation = () => {
 				</RootStack.Group>
 				<RootStack.Group screenOptions={{ presentation: 'modal' }}>
 					<RootStack.Screen name='User' component={UserScreen} />
+				</RootStack.Group>
+				<RootStack.Group screenOptions={{ presentation: 'modal' }}>
+					<RootStack.Screen name='Filter' component={FilterScreen} />
 				</RootStack.Group>
 			</RootStack.Navigator>
 		</NavigationContainer>
