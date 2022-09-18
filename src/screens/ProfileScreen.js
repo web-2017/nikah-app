@@ -11,6 +11,7 @@ import { profileRoute } from '../api/apiRoutes'
 import { getData } from '../utils/storeData'
 import { CustomLoaderScreen } from '../components/ui/CustomLoaderScreen'
 import { setLoading } from '../redux/reducer/userSlice'
+import { ProfileInputs } from '../components/ProfileInputs'
 
 const ProfileScreen = ({ navigation }) => {
 	const { loading } = useSelector((state) => state.user)
@@ -96,48 +97,43 @@ const ProfileScreen = ({ navigation }) => {
 				// get current user profile
 				const fetchCurrentProfileData = await getCurrentProfile()
 				// if profile exist change method on PUT
-				console.log(11, fetchCurrentProfileData?.profile?.description)
-				if (fetchCurrentProfileData?.profile?._id) {
+				const profile = fetchCurrentProfileData?.profile
+
+				if (profile?._id) {
 					setFetchMethod('PUT')
-					setPostId(fetchCurrentProfileData?.profile?._id)
+					setPostId(profile?._id)
 
-					console.log(fetchCurrentProfileData)
+					// console.log(fetchCurrentProfileData)
 
-					setFamilyStatus(fetchCurrentProfileData?.profile?.familyStatus)
-					setWannaKidsMore(fetchCurrentProfileData?.profile?.wannaKidsMore)
-					setLanguages(fetchCurrentProfileData?.profile?.languages)
-					setLevelOfFaith(fetchCurrentProfileData?.profile?.levelOfFaith)
-					setConvertMuslim(fetchCurrentProfileData?.profile?.convertMuslim)
-					setAkida(fetchCurrentProfileData?.profile?.akida)
+					setFamilyStatus(profile?.familyStatus)
+					setWannaKidsMore(profile?.wannaKidsMore)
+					setLanguages(profile?.languages)
+					setLevelOfFaith(profile?.levelOfFaith)
+					setConvertMuslim(profile?.convertMuslim)
+					setAkida(profile?.akida)
 					setOrigin({
-						nationality: fetchCurrentProfileData?.profile?.origin?.nationality,
-						countryOfBirth:
-							fetchCurrentProfileData?.profile?.origin?.countryOfBirth,
-						countryLiveNow:
-							fetchCurrentProfileData?.profile?.origin?.countryLiveNow,
-						cityLiveNow: fetchCurrentProfileData?.profile?.origin?.cityLiveNow,
-						statusResident:
-							fetchCurrentProfileData?.profile?.origin?.statusResident,
+						nationality: profile?.origin?.nationality,
+						countryOfBirth: profile?.origin?.countryOfBirth,
+						countryLiveNow: profile?.origin?.countryLiveNow,
+						cityLiveNow: profile?.origin?.cityLiveNow,
+						statusResident: profile?.origin?.statusResident,
 					})
 					setAppearance({
-						height: fetchCurrentProfileData?.profile?.appearance?.height,
-						weight: fetchCurrentProfileData?.profile?.appearance?.weight,
-						disability:
-							fetchCurrentProfileData?.profile?.appearance?.disability,
+						height: profile?.appearance?.height,
+						weight: profile?.appearance?.weight,
+						disability: profile?.appearance?.disability,
 					})
-					setOriginRace(fetchCurrentProfileData?.profile?.originRace)
+					setOriginRace(profile?.originRace)
 					setCareer({
-						qualification:
-							fetchCurrentProfileData?.profile?.career?.qualification,
-						education: fetchCurrentProfileData?.profile?.career?.education,
-						jobTitle: fetchCurrentProfileData?.profile?.career?.jobTitle,
-						specialization:
-							fetchCurrentProfileData?.profile?.career?.specialization,
+						qualification: profile?.career?.qualification,
+						education: profile?.career?.education,
+						jobTitle: profile?.career?.jobTitle,
+						specialization: profile?.career?.specialization,
 					})
-					setIncomeMonth(fetchCurrentProfileData?.profile?.incomeMonth)
-					setIncomeYear(fetchCurrentProfileData?.profile?.incomeYear)
-					setDescription(fetchCurrentProfileData?.profile?.description)
-					setKids(fetchCurrentProfileData?.profile?.kids)
+					setIncomeMonth(profile?.incomeMonth)
+					setIncomeYear(profile?.incomeYear)
+					setDescription(profile?.description)
+					setKids(profile?.kids)
 					dispatch(setLoading(false))
 				} else {
 					setFetchMethod('POST')
@@ -226,14 +222,12 @@ const ProfileScreen = ({ navigation }) => {
 			if (postId) {
 				dispatch(setLoading(true))
 
-				const fetchEditPost = await fetchHandler.editProfile({
+				await fetchHandler.editProfile({
 					url: profileRoute,
 					token,
 					body: { ...obj, postId: postId },
 				})
-				// const data = await fetchEditPost
-				// console.log('Edit post', data)
-				console.log(fetchEditPost)
+
 				setMessage('Success update profile')
 				setShowSnackbar(true)
 				dispatch(setLoading(false))
@@ -255,6 +249,14 @@ const ProfileScreen = ({ navigation }) => {
 				<CustomLoaderScreen />
 			) : (
 				<>
+					<CustomSnackbar
+						location='top'
+						onDismissSnackBar={onDismissSnackBar}
+						visible={showSnackbar}
+					>
+						{message}
+					</CustomSnackbar>
+
 					<ShowProfileDialogs
 						akida={akida}
 						setAkida={setAkida}
@@ -292,181 +294,45 @@ const ProfileScreen = ({ navigation }) => {
 						setIsStatus={setIsStatus}
 					/>
 
-					<CustomSnackbar
-						location='top'
-						onDismissSnackBar={onDismissSnackBar}
-						visible={showSnackbar}
-					>
-						{message}
-					</CustomSnackbar>
-					<CustomInput
-						value={RegNumbers(kids)}
-						label='How many kids?'
-						maxLength={2}
-						setState={(v) => setKids(v)}
-					/>
-					<CustomInput
-						value={familyStatus}
-						label='Family status'
-						disabled
-						onPressIn={() => setIsFamilyStatus(true)}
-						setState={(v) => setFamilyStatus(v)}
-					/>
-					<CustomInput
-						value={wannaKidsMore}
-						label='wanna kids more?'
-						disabled
-						onPressIn={() => setIsWannaKidsMore(true)}
-						setState={(v) => setWannaKidsMore(v)}
-					/>
-					<CustomInput
-						value={languages}
-						label='What language do you speak?'
-						setState={(v) => setLanguages(v)}
-					/>
-					<CustomInput
-						value={levelOfFaith}
-						label='level Of Faith'
-						disabled
-						onPressIn={() => setIsLevelOfFaith(true)}
-						setState={(v) => setLevelOfFaith(v)}
-					/>
-					<CustomInput
-						value={akida}
-						label='Akida'
-						disabled
-						onPressIn={() => setIsAkida(true)}
-						setState={(v) => setAkida(v)}
-					/>
-					<CustomInput
-						value={convertMuslim}
-						disabled
-						onPressIn={() => setIsConvertMuslim(true)}
-						label='convert Muslim'
-						setState={(v) => setConvertMuslim(v)}
-					/>
-					<CustomInput
-						value={RegNumbers(appearance.height)}
-						label='Height/cm/inch'
-						maxLength={3}
-						setState={(height) =>
-							setAppearance((prev) => ({ ...prev, height }))
-						}
-					/>
-					<CustomInput
-						value={RegNumbers(appearance.weight)}
-						label='Weight/kg - lbs'
-						maxLength={3}
-						setState={(weight) =>
-							setAppearance((prev) => ({ ...prev, weight }))
-						}
-					/>
-					<CustomInput
-						value={originRace}
-						label='Your Race'
-						disabled
-						onPressIn={() => setIsOriginRace(true)}
-						setState={(white) => setOriginRace((prev) => ({ ...prev, white }))}
-					/>
-					<CustomInput
-						value={appearance.disability}
-						label='Describe short your disability if any'
-						setState={(disability) =>
-							setAppearance((prev) => ({ ...prev, disability }))
-						}
-					/>
-					<CustomInput
-						value={origin.nationality}
-						label='Nationality'
-						disabled
-						onPressIn={() => setIsShowNationality(true)}
-						setState={(nationality) =>
-							setOrigin((prev) => ({ ...prev, nationality }))
-						}
-					/>
-					<CustomInput
-						value={origin.countryOfBirth}
-						label='Country Birth'
-						disabled
-						onPressIn={() => setShowCountries(true)}
-						setState={(countryOfBirth) =>
-							setOrigin((prev) => ({ ...prev, countryOfBirth }))
-						}
-					/>
-					<CustomInput
-						value={origin.countryLiveNow}
-						label='Country Live Now'
-						disabled
-						onPressIn={() => setIsShowCountryLiveNow(true)}
-						setState={(countryLiveNow) =>
-							setOrigin((prev) => ({ ...prev, countryLiveNow }))
-						}
-					/>
-					<CustomInput
-						value={origin.cityLiveNow}
-						label='City Live Now - example Chicago'
-						setState={(cityLiveNow) =>
-							setOrigin((prev) => ({ ...prev, cityLiveNow }))
-						}
-					/>
-					<CustomInput
-						value={origin.statusResident}
-						disabled
-						required
-						onPressIn={() => setIsStatus(true)}
-						label='Your Status Resident'
-						setState={(statusResident) =>
-							setOrigin((prev) => ({ ...prev, statusResident }))
-						}
-					/>
-					<CustomInput
-						value={career.qualification}
-						label='Your qualification'
-						setState={(qualification) =>
-							setCareer((prev) => ({ ...prev, qualification }))
-						}
-					/>
-					<CustomInput
-						value={career.education}
-						label='Education'
-						setState={(education) =>
-							setCareer((prev) => ({ ...prev, education }))
-						}
-					/>
-					<CustomInput
-						value={career.jobTitle}
-						label='Your current jobTitle'
-						setState={(jobTitle) =>
-							setCareer((prev) => ({ ...prev, jobTitle }))
-						}
-					/>
-					<CustomInput
-						value={career.specialization}
-						label='Your specialization'
-						setState={(specialization) =>
-							setCareer((prev) => ({ ...prev, specialization }))
-						}
-					/>
-
-					<CustomInput
-						value={RegNumbers(incomeMonth)}
-						label='Your income month'
-						setState={(incomeMonth) => setIncomeMonth(incomeMonth)}
-					/>
-
-					<CustomInput
-						value={RegNumbers(incomeYear)}
-						label='Your income year $'
-						setState={(incomeYear) => setIncomeYear(incomeYear)}
-					/>
-					<CustomInput
-						value={description}
-						row={10}
-						multiline
-						height={100}
-						label='"About me" max 300'
-						maxLength={300}
-						setState={(v) => setDescription(v)}
+					<ProfileInputs
+						kids={kids}
+						setKids={setKids}
+						familyStatus={familyStatus}
+						setFamilyStatus={setFamilyStatus}
+						setIsFamilyStatus={setIsFamilyStatus}
+						wannaKidsMore={wannaKidsMore}
+						setIsWannaKidsMore={setIsWannaKidsMore}
+						setWannaKidsMore={setWannaKidsMore}
+						languages={languages}
+						setLanguages={setLanguages}
+						levelOfFaith={levelOfFaith}
+						setLevelOfFaith={setLevelOfFaith}
+						setIsLevelOfFaith={setIsLevelOfFaith}
+						akida={akida}
+						setAkida={setAkida}
+						setIsAkida={setIsAkida}
+						convertMuslim={convertMuslim}
+						setConvertMuslim={setConvertMuslim}
+						setIsConvertMuslim={setIsConvertMuslim}
+						appearance={appearance}
+						setAppearance={setAppearance}
+						origin={origin}
+						setOrigin={setOrigin}
+						originRace={originRace}
+						setOriginRace={setOriginRace}
+						setIsStatus={setIsStatus}
+						setIsOriginRace={setIsOriginRace}
+						setCareer={setCareer}
+						career={career}
+						setShowCountries={setShowCountries}
+						setIsShowCountryLiveNow={setIsShowCountryLiveNow}
+						setIsShowNationality={setIsShowNationality}
+						setIncomeMonth={setIncomeMonth}
+						incomeMonth={incomeMonth}
+						setIncomeYear={setIncomeYear}
+						incomeYear={incomeYear}
+						setDescription={setDescription}
+						description={description}
 					/>
 					<CustomButton text='white' onPress={() => fetchData()}>
 						Save Profile

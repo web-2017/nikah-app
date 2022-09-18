@@ -75,6 +75,7 @@ const ShowProfileDialogs = ({
 					onPress={() => setIsAkida(false)}
 				>
 					{FIELDS.akida.map((elem, index) => (
+						// #
 						<Checkbox.Item
 							key={index}
 							color='red'
