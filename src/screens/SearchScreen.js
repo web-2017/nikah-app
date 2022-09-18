@@ -48,7 +48,7 @@ const SearchScreen = ({ navigation }) => {
 				token: stateUser?.token,
 			})
 			setUsers(response)
-			console.log(response)
+			// console.log(response)
 		} catch (error) {
 			// throw new Error('Error fetch posts', { cause: error })
 			console.log(error)

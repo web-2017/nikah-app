@@ -24,7 +24,7 @@ const DateProfileScreen = ({ route }) => {
 			userId: id,
 			token,
 		})
-
+		// console.log(getProfile?.profile)
 		setProfile(getProfile?.profile)
 		setUser(getProfile?.user)
 	}
@@ -75,7 +75,11 @@ const DateProfileScreen = ({ route }) => {
 					borderColor: colors.accent,
 				}}
 			/>
-			<View style={styles.surface} elevation={4}>
+			<View>
+				<CustomTitle style={{ color: colors.blue }}>"Description"</CustomTitle>
+				<CustomText style={{ ...styles.text }}>
+					Description: {profile?.description}.
+				</CustomText>
 				<CustomTitle style={{ color: colors.blue }}>"Islam"</CustomTitle>
 				<CustomText style={{ ...styles.text }}>
 					Convert muslim: {profile?.convertMuslim}.
@@ -90,6 +94,7 @@ const DateProfileScreen = ({ route }) => {
 				<CustomText style={styles.text}>
 					Family status: {profile?.familyStatus}.
 				</CustomText>
+				<CustomText style={styles.text}>Kids: {profile?.kids}.</CustomText>
 				<CustomText style={styles.text}>
 					Origin race: {profile?.originRace}.
 				</CustomText>

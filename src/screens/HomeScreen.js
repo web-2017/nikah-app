@@ -118,6 +118,12 @@ const HomeScreen = ({ navigation }) => {
 							Edit
 						</CustomButton>
 					</Surface>
+					<Surface style={styles.surface} elevation={4}>
+						<CustomTitle style={{ color: colors.blue }}>
+							Description
+						</CustomTitle>
+						<CustomText>{stateUser?.profile?.description}.</CustomText>
+					</Surface>
 					{/* Profile */}
 					{!stateUser?.profile ? (
 						<>
@@ -160,7 +166,7 @@ const HomeScreen = ({ navigation }) => {
 									Monthly income: {stateUser?.profile?.incomeMonth}$
 								</CustomText>
 								<CustomText>
-									Yearly income: {stateUser?.profile?.incomeYear}$
+									Yearly income: {stateUser?.proutofile?.incomeYear}$
 								</CustomText>
 								<CustomButton
 									mode='outlined'
@@ -174,6 +180,10 @@ const HomeScreen = ({ navigation }) => {
 								<CustomTitle style={{ color: colors.blue }}>
 									"Info about me"
 								</CustomTitle>
+								<CustomText>
+									Family status: {stateUser?.profile?.familyStatus}.
+								</CustomText>
+								<CustomText>Kids: {stateUser?.profile?.kids}.</CustomText>
 								<CustomText>
 									Origin race: {stateUser?.profile?.originRace}.
 								</CustomText>

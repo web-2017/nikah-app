@@ -52,7 +52,7 @@ const ProfileScreen = ({ navigation }) => {
 
 	const [incomeMonth, setIncomeMonth] = useState('')
 	const [incomeYear, setIncomeYear] = useState('')
-	const [age, setAge] = useState('')
+	const [kids, setKids] = useState('')
 
 	const [description, setDescription] = useState('')
 	const [languages, setLanguages] = useState('')
@@ -96,6 +96,7 @@ const ProfileScreen = ({ navigation }) => {
 				// get current user profile
 				const fetchCurrentProfileData = await getCurrentProfile()
 				// if profile exist change method on PUT
+				console.log(11, fetchCurrentProfileData?.profile?.description)
 				if (fetchCurrentProfileData?.profile?._id) {
 					setFetchMethod('PUT')
 					setPostId(fetchCurrentProfileData?.profile?._id)
@@ -135,8 +136,8 @@ const ProfileScreen = ({ navigation }) => {
 					})
 					setIncomeMonth(fetchCurrentProfileData?.profile?.incomeMonth)
 					setIncomeYear(fetchCurrentProfileData?.profile?.incomeYear)
-					setAge(fetchCurrentProfileData?.profile?.age)
 					setDescription(fetchCurrentProfileData?.profile?.description)
+					setKids(fetchCurrentProfileData?.profile?.kids)
 					dispatch(setLoading(false))
 				} else {
 					setFetchMethod('POST')
@@ -175,7 +176,7 @@ const ProfileScreen = ({ navigation }) => {
 				appearance,
 				originRace,
 				akida,
-				age,
+				kids,
 				origin,
 				career,
 				incomeMonth,
@@ -213,7 +214,7 @@ const ProfileScreen = ({ navigation }) => {
 			appearance,
 			originRace,
 			akida,
-			age,
+			kids,
 			origin,
 			career,
 			incomeMonth,
@@ -232,7 +233,7 @@ const ProfileScreen = ({ navigation }) => {
 				})
 				// const data = await fetchEditPost
 				// console.log('Edit post', data)
-
+				console.log(fetchEditPost)
 				setMessage('Success update profile')
 				setShowSnackbar(true)
 				dispatch(setLoading(false))
@@ -299,11 +300,10 @@ const ProfileScreen = ({ navigation }) => {
 						{message}
 					</CustomSnackbar>
 					<CustomInput
-						value={RegNumbers(age)}
-						maxLength={3}
-						label='Age'
-						keyboardType='numeric'
-						setState={(v) => setAge(v)}
+						value={RegNumbers(kids)}
+						label='How many kids?'
+						maxLength={2}
+						setState={(v) => setKids(v)}
 					/>
 					<CustomInput
 						value={familyStatus}
