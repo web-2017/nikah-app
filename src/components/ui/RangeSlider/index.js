@@ -7,8 +7,10 @@ import Notch from './Notch'
 import Rail from './Rail'
 import RailSelected from './RailSelected'
 import Thumb from './Thumb'
+import { useTheme } from 'react-native-paper'
 
-const RangeSlider = ({ from, to }) => {
+const RangeSlider = ({ from, to, setAge, style }) => {
+	const { colors } = useTheme()
 	const [low, setLow] = useState(from)
 	const [high, setHigh] = useState(to)
 
@@ -22,6 +24,7 @@ const RangeSlider = ({ from, to }) => {
 		(newLow, newHigh) => {
 			setLow(newLow)
 			setHigh(newHigh)
+			setAge({ min: newLow, max: newHigh })
 		},
 		[setLow, setHigh]
 	)
@@ -31,43 +34,47 @@ const RangeSlider = ({ from, to }) => {
 			<View
 				style={{
 					flexDirection: 'row',
-					justifyContent: 'space-between',
+					justifyContent: 'space-around',
 					marginVertical: 10,
+					...style,
 				}}
 			>
 				<View>
 					<Text
 						style={[
 							{ fontStyle: 'italic' },
-							{ textAlign: 'left', fontSize: 14, color: '#D2D2D2' },
+							{ textAlign: 'left', fontSize: 14, color: colors.accent },
 						]}
 					>
 						Min
 					</Text>
 					<Text
-						style={[{ fontWeight: 'bold' }, { fontSize: 18, color: '#000000' }]}
+						style={[
+							{ fontWeight: 'bold' },
+							{ fontSize: 16, color: colors.primary },
+						]}
 					>
-						{low}€
+						{low} Age
 					</Text>
 				</View>
 				<View>
 					<Text
 						style={[
 							{ fontStyle: 'italic' },
-							{ textAlign: 'right', fontSize: 14, color: '#D2D2D2' },
+							{ textAlign: 'right', fontSize: 14, color: colors.accent },
 						]}
 					>
 						Max
 					</Text>
 					<Text
-						style={[{ fontWeight: 'bold' }, { fontSize: 18, color: '#000000' }]}
+						style={[{ fontWeight: 'bold' }, { fontSize: 16, color: '#000000' }]}
 					>
-						{high}€
+						{high} Age
 					</Text>
 				</View>
 			</View>
 			<RangeSliderRN
-				// style={styles.slider}
+				style={{ ...style }}
 				min={from}
 				max={to}
 				step={1}
