@@ -2,10 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { CustomButton, CustomInput, CustomSnackbar } from '../components/ui/'
+import { CustomButton, CustomSnackbar } from '../components/ui/'
 import Container from '../components/Container'
 import ShowProfileDialogs from '../components/ShowProfileDialogs'
-import { RegNumbers } from '../utils/filters/regNumbers'
 import fetchHandler from '../utils/fetchHandler'
 import { profileRoute } from '../api/apiRoutes'
 import { getData } from '../utils/storeData'
@@ -13,7 +12,7 @@ import { CustomLoaderScreen } from '../components/ui/CustomLoaderScreen'
 import { setLoading } from '../redux/reducer/userSlice'
 import { ProfileInputs } from '../components/ProfileInputs'
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
 	const { loading } = useSelector((state) => state.user)
 	const dispatch = useDispatch()
 

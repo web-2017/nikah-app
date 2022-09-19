@@ -1,9 +1,12 @@
-import React, { useState, useCallback } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet } from 'react-native'
 import { Switch, useTheme } from 'react-native-paper'
-import RangeSlider from '../components/ui/RangeSlider/'
+import { useDispatch, useSelector } from 'react-redux'
 
+import RangeSlider from '../components/ui/RangeSlider/'
 import Container from '../components/Container'
+import { setFilter } from '../redux/reducer/searchSlice'
+import { setData } from '../utils/storeData'
 import {
 	CustomButton,
 	CustomInput,
@@ -32,11 +35,58 @@ const FilterScreen = () => {
 	const [countryLiveNow, setCountryLiveNow] = useState('')
 
 	const { colors } = useTheme()
+	const { filter } = useSelector((state) => state.filter)
+	const dispatch = useDispatch()
 
 	const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn)
 
-	const setFilter = () => {
-		console.log(1)
+	const setFilterHandler = async () => {
+		dispatch(
+			setFilter({
+				akida,
+				height,
+				weight,
+				language,
+				nationality,
+				familyStatus,
+				wannaKidsMore,
+				convertMuslim,
+				countryLiveNow,
+				cityLiveNow,
+				originRace,
+				from: age.min,
+				to: age.max,
+			})
+		)
+
+		// AsyncStorage save
+		await setData({
+			name: 'filter',
+			data: {
+				akida,
+				height,
+				weight,
+				language,
+				nationality,
+				familyStatus,
+				wannaKidsMore,
+				convertMuslim,
+				countryLiveNow,
+				cityLiveNow,
+				originRace,
+				fromAge: age.min,
+				toAge: age.max,
+			},
+		})
+	}
+
+	const fetchSearchQuery = async () => {
+		const response = await fetchHandler.getAllDataHandler({
+			url: `${profileRoute}?${filter}`,
+			token: stateUser?.toke,
+		})
+
+		console.log('response', response)
 	}
 
 	return (
@@ -171,7 +221,7 @@ const FilterScreen = () => {
 				/>
 			</View>
 
-			<CustomButton color={colors.blue} onPress={setFilter}>
+			<CustomButton color={colors.blue} onPress={setFilterHandler}>
 				Search
 			</CustomButton>
 		</Container>

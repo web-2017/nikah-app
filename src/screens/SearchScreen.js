@@ -3,16 +3,19 @@ import { View, StyleSheet, FlatList } from 'react-native'
 import { List, useTheme, TouchableRipple } from 'react-native-paper'
 import { Fontisto } from 'react-native-vector-icons'
 
-import { CustomButton, CustomText } from '../components/ui'
+import { CustomButton } from '../components/ui'
 import fetchHandler from '../utils/fetchHandler'
-import { allUsersRoute } from '../api/apiRoutes'
+import { allUsersRoute, profileRoute } from '../api/apiRoutes'
 import { UserContext } from '../context/userContext'
 import { ConvertTime } from '../utils/filters/convertTime'
+import { useSelector } from 'react-redux'
 
 const SearchScreen = ({ navigation }) => {
 	const { colors } = useTheme()
 	const [stateUser, setStateUser] = useContext(UserContext)
 	const [users, setUsers] = useState([])
+	const { filter } = useSelector((state) => state.filter)
+
 	useEffect(() => {
 		getUsers()
 	}, [])
@@ -32,6 +35,15 @@ const SearchScreen = ({ navigation }) => {
 
 	const getCurrentProfile = (profileId) => {
 		navigation.navigate('Date', { id: profileId, token: stateUser?.token })
+	}
+
+	const fetchSearchQuery = async () => {
+		const response = await fetchHandler.getAllDataHandler({
+			url: `${profileRoute}?${filter}`,
+			token: stateUser?.toke,
+		})
+
+		console.log('response', response)
 	}
 
 	const renderItem = ({ item }) => {

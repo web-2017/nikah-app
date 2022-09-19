@@ -1,31 +1,32 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createSlice } from '@reduxjs/toolkit'
 
-export const initialStateSearchFilter = {
-	language: '',
-	akida: '',
-	levelOfFaith: '',
-	convertMuslim: '',
-	originRace: '',
-	height: '',
-	weight: '',
-	nationality: '',
-	cityLiveNow: '',
-	countryLiveNow: '',
-	familyStatus: '',
-	age: { from: '', to: '' },
+export const initialState = {
+	filter: {
+		language: '',
+		akida: '',
+		levelOfFaith: '',
+		convertMuslim: '',
+		originRace: '',
+		height: '',
+		weight: '',
+		nationality: '',
+		cityLiveNow: '',
+		countryLiveNow: '',
+		familyStatus: '',
+		fromAge: '',
+		toAge: '',
+	},
 }
 
 export const searchSlice = createSlice({
 	name: 'search',
-	initialStateSearchFilter,
+	initialState,
 	reducers: {
 		setFilter: (state, action) => {
 			return {
 				...state,
 				...action.payload,
-				age: { from: action.payload.from },
-				to: { from: action.payload.to },
 			}
 		},
 	},
