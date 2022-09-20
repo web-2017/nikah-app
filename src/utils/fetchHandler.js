@@ -53,6 +53,7 @@ class FetchClass {
 			const response = await fetch(url, {
 				method: 'GET',
 				headers: {
+					...this.#headerOptions,
 					authorization: `Bearer ${token}`,
 				},
 			})

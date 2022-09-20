@@ -5,7 +5,7 @@ import { Fontisto } from 'react-native-vector-icons'
 
 import { CustomButton } from '../components/ui'
 import fetchHandler from '../utils/fetchHandler'
-import { allUsersRoute, profileRoute } from '../api/apiRoutes'
+import { allUsersRoute, profilesRoute } from '../api/apiRoutes'
 import { UserContext } from '../context/userContext'
 import { ConvertTime } from '../utils/filters/convertTime'
 import { useSelector } from 'react-redux'
@@ -37,13 +37,18 @@ const SearchScreen = ({ navigation }) => {
 		navigation.navigate('Date', { id: profileId, token: stateUser?.token })
 	}
 
+	useEffect(() => {
+		console.log('filter', filter)
+		filter && fetchSearchQuery()
+	}, [filter])
+
 	const fetchSearchQuery = async () => {
 		const response = await fetchHandler.getAllDataHandler({
-			url: `${profileRoute}?${filter}`,
-			token: stateUser?.toke,
+			url: `${profilesRoute}`,
+			token: stateUser?.token,
 		})
 
-		console.log('response', response)
+		// console.log('response', response)
 	}
 
 	const renderItem = ({ item }) => {

@@ -38,45 +38,40 @@ const FilterScreen = () => {
 	const { filter } = useSelector((state) => state.filter)
 	const dispatch = useDispatch()
 
-	const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn)
-
 	const setFilterHandler = async () => {
+		const obj = {
+			akida,
+			height,
+			weight,
+			language,
+			nationality,
+			familyStatus,
+			wannaKidsMore,
+			convertMuslim,
+			countryLiveNow,
+			cityLiveNow,
+			originRace,
+			fromAge: age.min,
+			toAge: age.max,
+		}
+
+		// remove all emtpy values
+		Object.keys(obj).forEach((key) => {
+			if (obj[key] === '') {
+				delete obj[key]
+			}
+		})
+
 		dispatch(
 			setFilter({
-				akida,
-				height,
-				weight,
-				language,
-				nationality,
-				familyStatus,
-				wannaKidsMore,
-				convertMuslim,
-				countryLiveNow,
-				cityLiveNow,
-				originRace,
-				from: age.min,
-				to: age.max,
+				filter: obj,
 			})
 		)
 
 		// AsyncStorage save
 		await setData({
 			name: 'filter',
-			data: {
-				akida,
-				height,
-				weight,
-				language,
-				nationality,
-				familyStatus,
-				wannaKidsMore,
-				convertMuslim,
-				countryLiveNow,
-				cityLiveNow,
-				originRace,
-				fromAge: age.min,
-				toAge: age.max,
-			},
+			data: obj,
 		})
 	}
 
@@ -86,7 +81,7 @@ const FilterScreen = () => {
 			token: stateUser?.toke,
 		})
 
-		console.log('response', response)
+		// console.log('response', response)
 	}
 
 	return (

@@ -3,19 +3,19 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export const initialState = {
 	filter: {
-		language: '',
-		akida: '',
-		levelOfFaith: '',
-		convertMuslim: '',
-		originRace: '',
-		height: '',
-		weight: '',
-		nationality: '',
-		cityLiveNow: '',
-		countryLiveNow: '',
-		familyStatus: '',
-		fromAge: '',
-		toAge: '',
+		// 	language: '',
+		// 	akida: '',
+		// 	levelOfFaith: '',
+		// 	convertMuslim: '',
+		// 	originRace: '',
+		// 	height: '',
+		// 	weight: '',
+		// 	nationality: '',
+		// 	cityLiveNow: '',
+		// 	countryLiveNow: '',
+		// 	familyStatus: '',
+		// 	fromAge: '',
+		// 	toAge: '',
 	},
 }
 
