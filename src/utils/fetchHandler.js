@@ -57,8 +57,7 @@ class FetchClass {
 					authorization: `Bearer ${token}`,
 				},
 			})
-			const resp = await response.json()
-			return resp
+			return await response.json()
 		} catch (error) {
 			console.error(error.cause)
 		}

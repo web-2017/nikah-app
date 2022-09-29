@@ -2,19 +2,20 @@ import React, { useState, useEffect, useContext } from 'react'
 import { View, StyleSheet, FlatList } from 'react-native'
 import { List, useTheme, TouchableRipple } from 'react-native-paper'
 import { Fontisto } from 'react-native-vector-icons'
+import { useSelector } from 'react-redux'
 
 import { CustomButton } from '../components/ui'
 import fetchHandler from '../utils/fetchHandler'
 import { allUsersRoute, profilesRoute } from '../api/apiRoutes'
 import { UserContext } from '../context/userContext'
 import { ConvertTime } from '../utils/filters/convertTime'
-import { useSelector } from 'react-redux'
+import { queryFilters } from '../utils/filters/queryParamsFilter'
 
 const SearchScreen = ({ navigation }) => {
 	const { colors } = useTheme()
 	const [stateUser, setStateUser] = useContext(UserContext)
 	const [users, setUsers] = useState([])
-	const { filter } = useSelector((state) => state.filter)
+	const { filter } = useSelector((state) => state)
 
 	useEffect(() => {
 		getUsers()
@@ -38,17 +39,17 @@ const SearchScreen = ({ navigation }) => {
 	}
 
 	useEffect(() => {
-		console.log('filter', filter)
-		filter && fetchSearchQuery()
+		console.log('filter', queryFilters(filter))
+		filter && fetchSearchQuery(queryFilters(filter))
 	}, [filter])
 
-	const fetchSearchQuery = async () => {
+	const fetchSearchQuery = async (param) => {
 		const response = await fetchHandler.getAllDataHandler({
-			url: `${profilesRoute}`,
+			url: `${profilesRoute}?${param}`,
 			token: stateUser?.token,
 		})
 
-		// console.log('response', response)
+		console.log('response', response)
 	}
 
 	const renderItem = ({ item }) => {

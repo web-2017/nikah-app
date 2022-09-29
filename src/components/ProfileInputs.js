@@ -41,6 +41,8 @@ export const ProfileInputs = ({
 	incomeYear,
 	setDescription,
 	description,
+	age,
+	setAge,
 }) => {
 	return (
 		<>
@@ -49,6 +51,12 @@ export const ProfileInputs = ({
 				label='How many kids?'
 				maxLength={2}
 				setState={(v) => setKids(v)}
+			/>
+			<CustomInput
+				value={RegNumbers(age)}
+				label='How old are you?'
+				maxLength={2}
+				setState={(v) => setAge(v)}
 			/>
 			<CustomInput
 				value={familyStatus}

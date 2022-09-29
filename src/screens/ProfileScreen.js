@@ -53,6 +53,7 @@ const ProfileScreen = () => {
 	const [incomeMonth, setIncomeMonth] = useState('')
 	const [incomeYear, setIncomeYear] = useState('')
 	const [kids, setKids] = useState('')
+	const [age, setAge] = useState(18)
 
 	const [description, setDescription] = useState('')
 	const [languages, setLanguages] = useState('')
@@ -294,6 +295,8 @@ const ProfileScreen = () => {
 					/>
 
 					<ProfileInputs
+						age={age}
+						setAge={setAge}
 						kids={kids}
 						setKids={setKids}
 						familyStatus={familyStatus}

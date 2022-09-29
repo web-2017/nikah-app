@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Switch, useTheme } from 'react-native-paper'
+import { View, StyleSheet, Text } from 'react-native'
+import { Switch, TextInput, useTheme } from 'react-native-paper'
 import { useDispatch, useSelector } from 'react-redux'
 
 import RangeSlider from '../components/ui/RangeSlider/'
 import Container from '../components/Container'
-import { setFilter } from '../redux/reducer/searchSlice'
+import { setFilter } from '../redux/reducer/filterSlice'
 import { setData } from '../utils/storeData'
 import {
 	CustomButton,
@@ -15,14 +15,15 @@ import {
 } from '../components/ui'
 import { RegNumbers } from '../utils/filters/regNumbers'
 
+const initialHeight = ''
+
 const FilterScreen = () => {
-	const [age, setAge] = useState({ min: 18, max: 60 })
+	const [age, setAge] = useState({ min: '', max: '' })
 	const [from, setFrom] = useState(18)
 	const [to, setTo] = useState(60)
 	const [familyStatus, setFamilyStatus] = useState('')
-	const [wannaKidsMore, setWannaKidsMore] = useState('yes')
+	const [wannaKidsMore, setWannaKidsMore] = useState('')
 	const [isSwitchOn, setIsSwitchOn] = useState(true)
-	const [levelOfFaith, setLevelOfFaith] = useState('')
 	const [convertMuslim, setConvertMuslim] = useState('')
 	const [isMuslim, setIsMuslim] = useState(true)
 	const [akida, setAkida] = useState('')
@@ -54,34 +55,20 @@ const FilterScreen = () => {
 			fromAge: age.min,
 			toAge: age.max,
 		}
-
-		// remove all emtpy values
+		// remove all empty values
 		Object.keys(obj).forEach((key) => {
 			if (obj[key] === '') {
 				delete obj[key]
 			}
 		})
-
-		dispatch(
-			setFilter({
-				filter: obj,
-			})
-		)
+		console.log(11, obj)
+		dispatch(setFilter(obj))
 
 		// AsyncStorage save
 		await setData({
 			name: 'filter',
 			data: obj,
 		})
-	}
-
-	const fetchSearchQuery = async () => {
-		const response = await fetchHandler.getAllDataHandler({
-			url: `${profileRoute}?${filter}`,
-			token: stateUser?.toke,
-		})
-
-		// console.log('response', response)
 	}
 
 	return (
@@ -105,7 +92,7 @@ const FilterScreen = () => {
 						value={isSwitchOn}
 						onValueChange={(v) => {
 							setIsSwitchOn(!isSwitchOn)
-							setWannaKidsMore(isSwitchOn ? 'yes' : 'no')
+							setWannaKidsMore(v ? 'yes' : 'no')
 						}}
 					/>
 				</View>
@@ -118,11 +105,12 @@ const FilterScreen = () => {
 					<CustomText style={{ alignSelf: 'center', paddingRight: 20 }}>
 						{isMuslim ? 'yes' : 'no'}
 					</CustomText>
+
 					<Switch
 						value={isMuslim}
 						onValueChange={(v) => {
 							setIsMuslim(!isMuslim)
-							setConvertMuslim(isMuslim ? 'yes' : 'no')
+							setConvertMuslim(v ? 'yes' : 'no')
 						}}
 					/>
 				</View>
@@ -138,7 +126,7 @@ const FilterScreen = () => {
 					maxLength={3}
 					style={{ flex: 3, margin: 3 }}
 					label='Height'
-					value={RegNumbers(height)}
+					value={height}
 					setState={setHeight}
 				/>
 				<CustomInput
