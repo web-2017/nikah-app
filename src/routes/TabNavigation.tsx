@@ -9,14 +9,19 @@ import SignUpScreen from '../screens/SignUpScreen'
 import LogInScreen from '../screens/LogInScreen'
 import SearchScreen from '../screens/SearchScreen'
 import FavoriteScreen from '../screens/FavoriteScreen'
-import { UserContext } from '../context/userContext'
+import { IUser, UserContext } from '../context/userContext'
 
-const Tab = createBottomTabNavigator()
+type RootStackParamList = {
+	Home: undefined
+	Profile: undefined
+}
+
+const Tab = createBottomTabNavigator<RootStackParamList>()
 
 export const TabNavigation = () => {
 	const { colors } = useTheme()
 
-	const [stateUser, setStateUser] = useContext(UserContext)
+	const [stateUser, setStateUser] = useContext<string>(UserContext)
 
 	// console.log('tab', stateUser?._id)
 	return (

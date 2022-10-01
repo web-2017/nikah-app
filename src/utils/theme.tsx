@@ -1,6 +1,23 @@
 import { DefaultTheme } from 'react-native-paper'
 
-export const theme = {
+interface Colors {
+	primary: string
+	accent: string
+	tomato: string
+	red: string
+	green: string
+	yellow: string
+	blue: string
+	dark: string
+	brown: string
+	gray: string
+	bone: string
+}
+interface ITheme {
+	colors: Colors
+}
+
+export const theme: ITheme = {
 	...DefaultTheme,
 	colors: {
 		...DefaultTheme.colors,

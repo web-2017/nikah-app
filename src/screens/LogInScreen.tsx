@@ -14,7 +14,7 @@ import {
 import { FIELDS } from '../utils/constants'
 import { signInRoute } from '../api/apiRoutes'
 import { getData, setData } from '../utils/storeData'
-import { CustomText } from '../components/ui/'
+import { CustomText } from '../components/ui'
 import { UserContext } from '../context/userContext'
 
 const fakeUser = {
