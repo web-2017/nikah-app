@@ -1,6 +1,6 @@
 import { DefaultTheme } from 'react-native-paper'
 
-interface Colors {
+export interface IColors {
 	primary: string
 	accent: string
 	tomato: string
@@ -13,8 +13,8 @@ interface Colors {
 	gray: string
 	bone: string
 }
-interface ITheme {
-	colors: Colors
+export interface ITheme {
+	colors: IColors
 }
 
 export const theme: ITheme = {

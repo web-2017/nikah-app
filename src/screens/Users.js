@@ -1,20 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { View, StyleSheet, FlatList } from 'react-native'
-import { List, useTheme, TouchableRipple } from 'react-native-paper'
-import { Fontisto } from 'react-native-vector-icons'
+import { View, StyleSheet } from 'react-native'
+import { useTheme } from 'react-native-paper'
 import { useSelector } from 'react-redux'
 
 import { CustomButton } from '../components/ui'
 import fetchHandler from '../utils/fetchHandler'
 import { allUsersRoute, profilesRoute } from '../api/apiRoutes'
 import { UserContext } from '../context/userContext'
-import { ConvertTime } from '../utils/filters/convertTime'
 import { queryFilters } from '../utils/filters/queryParamsFilter'
+import UsersList from '../components/UsersList'
 
-const SearchScreen = ({ navigation }) => {
+const Users = ({ navigation }) => {
 	const { colors } = useTheme()
 	const [stateUser, setStateUser] = useContext(UserContext)
 	const [users, setUsers] = useState([])
+	// const [isCurrentUser, setIsCurrentUser] = useState(
+	// 	stateUser?._id === profile?.postedBy?._id
+	// )
 	const { filter } = useSelector((state) => state)
 
 	useEffect(() => {
@@ -52,31 +54,6 @@ const SearchScreen = ({ navigation }) => {
 		console.log('response', response)
 	}
 
-	const renderItem = ({ item }) => {
-		return (
-			<TouchableRipple
-				rippleColor='rgba(0, 0, 0, .32)'
-				onPress={() => getCurrentProfile(item?._id)}
-			>
-				<List.Item
-					title={`${item?.firstName} ${item?.lastName}`}
-					description={`Age: ${ConvertTime({
-						mode: 'getCurrentAge',
-						time: item?.dob,
-					})}`}
-					titleStyle={{ color: colors.primary }}
-					descriptionStyle={{ color: colors.gray }}
-					left={() => (
-						<List.Icon
-							color={colors.gray}
-							icon={() => <Fontisto name='female' size={30} />}
-						/>
-					)}
-				/>
-			</TouchableRipple>
-		)
-	}
-
 	return (
 		<View style={{ marginHorizontal: 5 }}>
 			<CustomButton
@@ -86,15 +63,11 @@ const SearchScreen = ({ navigation }) => {
 			>
 				Filter
 			</CustomButton>
-			<FlatList
-				data={users}
-				renderItem={renderItem}
-				keyExtractor={(item) => item._id}
-			/>
+			<UsersList users={users} getCurrentProfile={getCurrentProfile} />
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({})
 
-export default SearchScreen
+export default Users

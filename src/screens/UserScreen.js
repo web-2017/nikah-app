@@ -63,6 +63,8 @@ const UserScreen = ({ navigation }) => {
 					},
 				})
 
+				console.log('user', editUser)
+
 				setStateUser({ ...stateUser, user: editUser?.user })
 				setLoading(false)
 				navigation.navigate('Home')

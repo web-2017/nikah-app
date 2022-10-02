@@ -7,7 +7,7 @@ import ProfileScreen from '../screens/ProfileScreen'
 import { DrawerNavigator } from './DrawerNavigation'
 import SignUpScreen from '../screens/SignUpScreen'
 import LogInScreen from '../screens/LogInScreen'
-import SearchScreen from '../screens/SearchScreen'
+import Users from '../screens/Users'
 import FavoriteScreen from '../screens/FavoriteScreen'
 import { IUser, UserContext } from '../context/userContext'
 
@@ -42,7 +42,7 @@ export const TabNavigation = () => {
 								: 'american-football-outline'
 						} else if (route.name === 'Login') {
 							iconName = focused ? 'log-in' : 'log-in-outline'
-						} else if (route.name === 'Search') {
+						} else if (route.name === 'Users') {
 							iconName = focused ? 'search-circle' : 'search-circle-outline'
 						} else if (route.name === 'Favorite') {
 							iconName = focused ? 'heart-circle' : 'heart-circle-outline'
@@ -65,12 +65,12 @@ export const TabNavigation = () => {
 						}}
 					/>
 					<Tab.Screen
-						name='Search'
+						name='Users'
 						options={{
-							tabBarLabel: 'Search',
+							tabBarLabel: 'Users',
 							headerShown: true,
 						}}
-						component={SearchScreen}
+						component={Users}
 					/>
 					<Tab.Screen
 						name='Favorite'
