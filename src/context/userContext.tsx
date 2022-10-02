@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, FC, ReactNode } from 'react'
+import React, { createContext, useState, useEffect, FC } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { IUserStore, IUser } from '../types/types'
 
