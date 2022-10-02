@@ -8,7 +8,7 @@ import Container from '../components/Container'
 import { CustomText, CustomTitle } from '../components/ui'
 import fetchHandler from '../utils/fetchHandler'
 import { ConvertTime } from '../utils/filters/convertTime'
-import { IProfile, IUser } from '../types/types'
+import { IProfile, IUser, IColors } from '../types/types'
 
 interface IProps {
 	route: any
@@ -16,7 +16,7 @@ interface IProps {
 
 const DateProfileScreen: FC<IProps> = ({ route }) => {
 	const { id, token } = route.params
-	const { colors } = useTheme()
+	const { colors } = useTheme<IColors>()
 	const [profile, setProfile] = useState<IProfile>()
 	const [user, setUser] = useState<IUser>()
 	useEffect(() => {

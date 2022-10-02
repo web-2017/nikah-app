@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
-import { Platform, ViewStyle } from 'react-native'
+import { Platform } from 'react-native'
 import { Text, useTheme } from 'react-native-paper'
 
 // all fontFamily in '../ui-kit/FontFamily.js.js'
 
 interface CustomTextProps {
 	children: React.ReactNode
-	style?: ViewStyle
+	style?: any
 	onPress?: () => void
 }
 export const CustomText: FC<CustomTextProps> = ({

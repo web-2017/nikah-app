@@ -1,18 +1,7 @@
 import { DefaultTheme } from 'react-native-paper'
+import '@emotion/react'
+import { IColors } from '../types/types'
 
-export interface IColors {
-	primary: string
-	accent: string
-	tomato: string
-	red: string
-	green: string
-	yellow: string
-	blue: string
-	dark: string
-	brown: string
-	gray: string
-	bone: string
-}
 export interface ITheme {
 	colors: IColors
 }

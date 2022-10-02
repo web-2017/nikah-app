@@ -57,3 +57,16 @@ export interface IProfile {
 	user?: IUser
 	appearance: IAppearance
 }
+export interface IColors {
+	primary: string
+	accent: string
+	tomato: string
+	red: string
+	green: string
+	yellow: string
+	blue: string
+	dark: string
+	brown: string
+	gray: string
+	bone: string
+}
