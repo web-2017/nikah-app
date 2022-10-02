@@ -1,9 +1,19 @@
-import React from 'react'
-import { Platform } from 'react-native'
+import React, { FC } from 'react'
+import { Platform, ViewStyle } from 'react-native'
 import { Text, useTheme } from 'react-native-paper'
 
 // all fontFamily in '../ui-kit/FontFamily.js.js'
-export const CustomText = ({ children, style, onPress }) => {
+
+interface CustomTextProps {
+	children: React.ReactNode
+	style?: ViewStyle
+	onPress?: () => void
+}
+export const CustomText: FC<CustomTextProps> = ({
+	children,
+	style,
+	onPress,
+}) => {
 	const { colors } = useTheme()
 	return (
 		<Text

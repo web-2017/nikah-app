@@ -8,6 +8,7 @@ export interface IUser {
 	password: string
 	sex: string
 	profileCreatedBy: string
+	createdAt?: string
 }
 
 export interface IUserStore {

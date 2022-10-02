@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { Avatar, Divider, Surface, useTheme } from 'react-native-paper'
+import { Avatar, Divider, useTheme } from 'react-native-paper'
 import Fontisco from 'react-native-vector-icons/Fontisto'
 
 import { profileRoute } from '../api/apiRoutes'
 import Container from '../components/Container'
-import { CustomText, CustomTitle } from '../components/ui/'
+import { CustomText, CustomTitle } from '../components/ui'
 import fetchHandler from '../utils/fetchHandler'
 import { ConvertTime } from '../utils/filters/convertTime'
+import { IProfile, IUser } from '../types/types'
 
-const DateProfileScreen = ({ route }) => {
+interface IProps {
+	route: any
+}
+
+const DateProfileScreen: FC<IProps> = ({ route }) => {
 	const { id, token } = route.params
 	const { colors } = useTheme()
-	const [profile, setProfile] = useState('')
-	const [user, setUser] = useState('')
+	const [profile, setProfile] = useState<IProfile>()
+	const [user, setUser] = useState<IUser>()
 	useEffect(() => {
 		getCurrentProfile()
 	}, [id])
