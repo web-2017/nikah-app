@@ -1,5 +1,4 @@
 import { DefaultTheme } from 'react-native-paper'
-import '@emotion/react'
 import { IColors } from '../types/types'
 
 export interface ITheme {
