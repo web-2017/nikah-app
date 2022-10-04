@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createSlice } from '@reduxjs/toolkit'
+import { IProfile } from '../../types/types'
 
-export const initialState = {
+export const initialState: IProfile = {
 	// 	language: '',
 	// 	akida: '',
 	// 	levelOfFaith: '',
@@ -15,21 +16,20 @@ export const initialState = {
 	// 	familyStatus: '',
 	// 	fromAge: '',
 	// 	toAge: '',
-}
+} as any
 
 export const filterSlice = createSlice({
 	name: 'filter',
 	initialState,
 	reducers: {
 		setFilter: (state, action) => {
-			state = { ...state, ...action.payload }
-			console.log(12345, state)
-			return state
+			state = action.payload
 		},
 	},
 })
 
 // Action creators are generated for each case reducer function
+
 export const { setFilter } = filterSlice.actions
 
 export default filterSlice.reducer

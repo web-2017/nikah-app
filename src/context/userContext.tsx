@@ -2,10 +2,13 @@ import React, { createContext, useState, useEffect, FC } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { IUserStore, IUser } from '../types/types'
 
-const initialUserState = null
+const initialUserState = {
+	users: [],
+} as any
 
 // Context
-export const UserContext = createContext<IUser | null>(initialUserState)
+export const UserContext =
+	createContext<typeof initialUserState>(initialUserState)
 
 // Provider
 export const UserProvider: FC<IUserStore> = ({ children }) => {
